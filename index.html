@@ -2,152 +2,149 @@
 <html xmlns:og='http://ogp.me/ns#'>
 
 <head>
-    <meta charset="UTF-8">
-    <title>高雄復健診所</title>
-    <link rel="stylesheet" href="css/index.css" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <link rel="shortcut icon" href="img/favicon.ico">
-    <meta property="og:description" content="當你受傷時，還在傻傻地等他自己好嗎?難道你不知道會加重病情嗎?最新的網站提供給你知道，全高雄復健醫院盡在這裡，還不快來搜尋你那區最近的復健醫院">
-    </meta>
-    <meta property="og:site_name" content="復健網站">
-    </meta>
+	<meta charset="UTF-8">
+	<title>高雄復健診所</title>
+	<link rel="stylesheet" href="css/index.css" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<meta property="og:description" content="當你受傷時，還在傻傻地等他自己好嗎?難道你不知道會加重病情嗎?最新的網站提供給你知道，全高雄復健醫院盡在這裡，還不快來搜尋你那區最近的復健醫院">
+	</meta>
+	<meta property="og:site_name" content="復健網站">
+	</meta>
 </head>
 
 <body>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtaQI1JTXjAtt1Mwsy6nVlZrao_uEUWRc&callback=initMap"
-        async defer>
-    </script>
-    <script>
-        function tMap() {
-            var area = document.getElementById("area").value;
-            var category = document.getElementById("category").value;
-            console.log(area);
-            console.log(category);
-            $.ajax({
-                type: 'GET',
-                url: 'http://data.kaohsiung.gov.tw/Opendata/DownLoad.aspx?Type=2&CaseNo1=AE&CaseNo2=6&FileType=1&Lang=C&FolderType=',
-                success: function (data) {
-                    var myLatLng = {
-                        lat: 22.663,
-                        lng: 120.344
-                    };
-                    var map = new google.maps.Map(document.getElementById('map-canvas'), {
-                        zoom: 12,
-                        center: myLatLng
-                    });
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtaQI1JTXjAtt1Mwsy6nVlZrao_uEUWRc&callback=initMap"
+		async defer>
+	</script>
+	<script>
+		function targetMap() {
+			var previousInfoWindow = '';
+			var area = document.getElementById("area").value;
+			var category = document.getElementById("category").value;
 
-                    for (i = 0; data.length > i; i++) {
+			$.ajax({
+				type: 'GET',
+				url: 'https://data.kcg.gov.tw/dataset/2ea6c75c-5ccb-45e8-b57f-ff750853c4af/resource/787b9853-1a32-4bdf-af54-e1cdf71dd3b9/download/-.json',
+				success: function (data) {
+					var formatData = data.orgs.frg.org;
 
-                        var thisData = JSON.parse(data);
-                        var str;
-                        var informaddress = thisData[i].informaddress;
-                        var servItem = thisData[i].servItem;
-                        var address = thisData[i].dataOrg;
-                        var informtel = thisData[i].informtel;
-                        var informname = thisData[i].org_Text;
+					var myLatLng = {
+						lat: 22.663,
+						lng: 120.344
+					};
+					var map = new google.maps.Map(document.getElementById('map-canvas'), {
+						zoom: 12,
+						center: myLatLng
+					});
 
-                        if (informaddress.match(area) && servItem.match(category)) {
+					for (let i = 0; i < formatData.length; i++) {
 
-                            str = '<li>' + thisData[i].id + '</li>';
-                            var lat = '<li>' + thisData[i].lat + '</li>';
-                            var lng = '<li>' + thisData[i].lng + '</li>';
-                            $('.inform').append(str, lat, lng);
-                            var uta = thisData[i].lat;
-                            var lnga = thisData[i].lng;
-                            var locate = {
-                                lat: parseFloat(uta),
-                                lng: parseFloat(lnga)
-                            };
-                            addMarker(category);
-                        }
-                    }
+						var str;
+						var informaddress = formatData[i].informaddress;
+						var servItem = formatData[i].servItem;
+						var address = formatData[i].dataOrg;
+						var informtel = formatData[i].informtel;
+						var hospitalName = formatData[i].text;
 
-                    function addMarker(category) {
-                        //判斷 category 是不是不限//
-                        if (category != '') {
-                            var image = {
-                                url: 'img/' + category + '.png',
-                                scaledSize: new google.maps.Size(35, 35),
-                            };
-                        }
+						if (informaddress.match(area) && servItem.match(category)) {
+							str = '<li>' + formatData[i].id + '</li>';
+							var lat = '<li>' + formatData[i].lat + '</li>';
+							var lng = '<li>' + formatData[i].lng + '</li>';
 
-                        var marker = new google.maps.Marker({
-                            position: locate,
-                            map: map,
-                            title: 'Hello World!',
-                            animation: google.maps.Animation.DROP,
-                            icon: image
-                        });
+							$('.inform').append(str, lat, lng);
+							var uta = formatData[i].lat;
+							var lnga = formatData[i].lng;
+							var locate = {
+								lat: parseFloat(uta),
+								lng: parseFloat(lnga)
+							};
+							addMarker(category);
+						}
+					}
 
-                        var infowindow = new google.maps.InfoWindow({
-                            content: '<div style="font-size:20px;color:blue;"><h1>醫院資訊</h1></div>' +
-                                '<p style="color:red;">醫院名稱:</p>' + informname + '<br>' +
-                                '<p style="color:red;">醫院電話:</p>' + informtel +
-                                '<p style="color:red;">醫院地址:</p>' + informaddress
-                        });
-                        marker.addListener('click', toggleBounce);
-                        google.maps.event.addListener(marker, 'click', function () {
-                            infowindow.open(map, marker);
-                        });
+					function addMarker(category) {
+						//判斷 category 是不是不限
+						if (category != '') {
+							var image = {
+								url: 'img/' + category + '.png',
+								scaledSize: new google.maps.Size(35, 35),
+							};
+						}
 
-                        function toggleBounce() {
-                            if (marker.getAnimation() !== null) {
-                                marker.setAnimation(null);
-                            } else {
-                                marker.setAnimation(google.maps.Animation.BOUNCE);
-                            }
-                        }
-                    }
-                }
+						var marker = new google.maps.Marker({
+							position: locate,
+							map: map,
+							title: 'Hello World!',
+							animation: google.maps.Animation.DROP,
+							icon: image
+						});
 
-            });
-        }
-    </script>
-    <script>
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('map-canvas'), {
-                center: {
-                    lat: 22.663,
-                    lng: 120.344
-                },
-                zoom: 12
-            });
-            var infoWindow = new google.maps.InfoWindow({
-                map: map
-            });
+						var infowindow = new google.maps.InfoWindow({
+							content: '<div style="font-size:20px;color:blue;"><h1>醫院資訊</h1></div>' +
+								'<p style="color:red;">醫院名稱:</p>' + hospitalName + '<br>' +
+								'<p style="color:red;">醫院電話:</p>' + informtel +
+								'<p style="color:red;">醫院地址:</p>' + informaddress
+						});
 
-            // Try HTML5 geolocation.
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
+						google.maps.event.addListener(marker, 'click', function () {
+							// close previous infowindow mechanism
+							if (previousInfoWindow !== '') {
+								previousInfoWindow.close();
+								previousInfoWindow = '';
+							}
+							infowindow.open(map, marker);
+							previousInfoWindow = infowindow;
+						});
+					}
+				}
+			});
+		}
+	</script>
+	<script>
+		function initMap() {
+			var map = new google.maps.Map(document.getElementById('map-canvas'), {
+				center: {
+					lat: 22.663,
+					lng: 120.344
+				},
+				zoom: 12
+			});
+			var infoWindow = new google.maps.InfoWindow({
+				map: map
+			});
 
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent('Your Position.');
-                    map.setCenter(pos);
-                }, function () {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
-            }
-        }
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function (position) {
+					var pos = {
+						lat: position.coords.latitude,
+						lng: position.coords.longitude
+					};
 
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                'Error: The Geolocation service failed.' :
-                'Error: Your browser doesn\'t support geolocation.');
-        }
-    </script>
+					infoWindow.setPosition(pos);
+					infoWindow.setContent('Your Position.');
+					map.setCenter(pos);
+				}, function () {
+					handleLocationError(true, infoWindow, map.getCenter());
+				});
+			} else {
+				// Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow, map.getCenter());
+			}
+		}
+
+		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+			infoWindow.setPosition(pos);
+			infoWindow.setContent(browserHasGeolocation ?
+				'Error: The Geolocation service failed.' :
+				'Error: Your browser doesn\'t support geolocation.');
+		}
+	</script>
 	<div class="wrap">
 		<div class="header">
 			<li>
@@ -226,7 +223,7 @@
 							<option value="">不限</option>
 						</select>
 					</li>
-					<input class="select_btn" type="submit" onclick="tMap()">
+					<input class="select_btn" type="submit" onclick="targetMap()">
 				</ul>
 			</div>
 
