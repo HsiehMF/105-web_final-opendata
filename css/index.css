@@ -1,0 +1,250 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600&display=swap');
+
+body {
+	line-height: 1;
+	font-family: 'Noto Serif TC', serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+#map-canvas{
+	height: 600px; 
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 50px;
+	border: 1px solid #CCC; 
+}
+.wrap{
+	width: 100%;
+	margin: 0 auto;
+	background:	#D9FFFF;
+}
+.header{
+	height: 55px;
+	position: fixed;
+	background: red;
+	opacity:0.98;
+	width: 100%;
+	box-shadow: 0 0 8px 0 #b3b3b3;
+	z-index: 99;
+}
+.header li{
+	margin-left: 40px;
+	list-style-type: none;
+	display: inline-block;
+}
+.header a{
+	color: black;
+}
+.header h1{
+	position: absolute;
+	bottom: 15px;
+	left: 105px;
+	font-size: 26px;
+	color: white;
+	font-weight: bold;
+}
+.header img{
+	height: 50px;
+}
+.classify{
+	float: right;
+	width: 250px;
+}
+.classify li{
+	float: left;
+	font-size: 20px;
+	margin-left: 15px;
+	margin-right: 25px;
+	margin-top: 18px;
+}
+.classify a{
+	margin-top: 10px;
+	padding-top: 18px;
+	padding-bottom: 18px;
+	color: white;
+	text-decoration: none;
+}
+.classify a:hover{
+	background: white;
+	opacity: 0.98;
+	transition:all 0.3s ease;
+}
+.classify a:hover{
+	color: red;
+}
+.space{
+	height: 80px;
+}
+.index_space{
+	height: 80px;
+}
+.left_space{
+	float: left;
+	width: 15%;
+	height: 100px;
+}
+.content{
+	width: 80%;
+	margin-left: 20%;
+	margin-bottom: 40px;
+}
+.content h1{
+	font-size: 38px;
+	font-weight: bold;
+}
+.content img {
+	margin: 12px 0px;
+}
+.content p{
+	font-size: 22px;
+}
+.m_title{
+	height: 38px;
+	padding-top: 2px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.m_title li{
+	width: 100px;
+	border-bottom: 5px solid #9b9188;
+	list-style-type: none;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.m_title a{
+	font-size: 16px;
+	text-decoration: none;
+	padding-top: 8px;
+	color: violet;
+}
+.m_title li:hover{
+	background: grey;
+	transition:all 0.3s ease;
+}
+.m_item{
+	margin-bottom: 40px;
+}
+.m_item li:hover{
+	background: #FFDDAA;
+	transition: ease;
+}
+.m_item li{
+	height: 220px;
+	width: 170px;
+	float: left;
+	list-style-type: none;
+	margin-top: 10px;
+	margin-right: 35px;
+	margin-left: 35px;
+	text-align: center;
+	box-shadow: 0 0 3px 0 #b3b3b3;
+}
+.m_item img{
+	width: 170px;
+	height: 160px;
+	margin-bottom: 15px;
+}
+.m_item a{
+	text-decoration: none;
+	color: black;
+}
+.product_unit{
+	font-size: 12px;
+}
+.product_name{
+	font-size: 14px;
+}
+.product_price{
+	font-size: 12px;
+}
+.main_content {
+	height: 100vh;
+}
+.select_zone {
+	float: left;
+	width: 16%;
+	height: 100%;
+}
+.select_zone select{
+	margin: 8px 0px;
+}
+.select_zone ul {
+	list-style: none;
+	margin: 30px 30px;
+}
+.select_result{
+	float: left;
+	margin-left: -6em;
+	width: 86%;
+	height: 700px;
+	text-align: center;
+}
+.inform{
+	list-style-type: none;
+}
+.product_unit{
+	font-size: 12px;
+}
+.product_name{
+	font-size: 14px;
+}
+.product_price{
+	font-size: 12px;
+}
+.footer{
+	margin-top: 40px;
+	background: black;
+	opacity: 0.78;
+	height: 100px;
+	text-align: center;
+	font-size: 14px;
+	color: grey;
+}
+.footer p{
+	padding-top: 42px;
+}
+.clear{
+	clear: both;
+}
+.select_btn{
+	margin-top: 15px;
+}
